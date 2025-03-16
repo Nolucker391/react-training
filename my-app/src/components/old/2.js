@@ -1,19 +1,14 @@
 import { useState } from "react";
-import seminarStore from "../seminarstore";
 
 const EditSeminar = ({ seminar, onSave }) => {
   const [title, setTitle] = useState(seminar.title);
 
   const handleSave = () => {
-    const updatedSeminar = { ...seminar, title };
-    fetch(`http://localhost:5000/seminars/${seminar.id}`, {
+    fetch(`http://localhost:500/seminars/${seminar.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedSeminar),
-    }).then(() => {
-      seminarStore.updateSeminar(updatedSeminar);
-      onSave();
-    });
+      body: JSON.stringify({ ...seminar, title }),
+    }).then(() => onSave());
   };
 
   return (
